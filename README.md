@@ -51,3 +51,17 @@ We can now test the server by running the following in the console:
 If you type the *localhost:3000* into your web browser, you'll see the "Hello World!" message displayed.
 
 We've just created a server with Node.js and Express!
+
+# Setting up the index view
+
+Instead of responding with text when someone visits our root route, we would like to respond with an HTML file. For this, we'll be using EJS (Embedded Javascript). EJS is a templating language.
+
+In order to use EJS in Express, we need to set up our template engine.
+
+*A template engine enables you to use static template files in your application. At runtime, the template engine replaces variables in a template file with actual values, and transforms the template into an HTML file sent to the client. This approach makes it easier to design an HTML page.*
+
+The short version is that EJS allows us to interact with variables and then dynamically create our HTML based on those variables.
+
+First, we'll install EJS in the terminal/console:
+
+  *npm install ejs --save*

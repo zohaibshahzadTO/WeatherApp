@@ -88,4 +88,9 @@ Now that we've built upon our *index.ejs* file, we want to replace our *app.get*
 
   *See index.ejs file commit*
 
-I
+Instead of using *res.send*, we use *res.render* when working with a templating language. *res.render* will render our view, then send the equivalent HTML to the client.
+
+At this point, we can test again by running:
+
+  *node server.js*
+  // Example app listening on port 3000.

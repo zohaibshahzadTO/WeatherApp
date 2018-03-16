@@ -104,3 +104,45 @@ Express wont allow access to the css file by default, so we need to expose it wi
   *app.use(express.static('public'));*
 
 # setting up our POST Route
+
+We have one get route, and then we create our server. However, for our application to work, we need a post route as well. If you look at our *index.ejs* file, you can see that our form is submitting a post request to the / route:
+
+  *<form action="/" method="post">*
+
+Now that we know where our form is posting, we can setup the route. A post request looks just like the get request, with one minor change:
+
+  *app.post('/', function (req, res) {
+    res.render('index');
+   })*
+
+But instead of just responding with the same html template, lets access the name of the city the user typed in as well. For this we need to use an Express Middleware.
+
+Express is a minimalist framework. However, we can make use of Middleware (functions that have access to the *req* and *res* bodies) in order to preform more advanced tasks.
+
+We’re going to make use of the *body-parser* middleware. *body-parser* allows us to make use of the key-value pairs stored on the *req-body* object. In this case, we’ll be able to access the city name the user typed in on the client side.
+
+To use body-parser, we must install it first:
+
+  *npm install body-parser --save*
+
+Once installed, we can require it, and then make use of our middleware with the following line of code in our *server.js*:
+
+  *const bodyParser = require('body-parser');
+   // ...
+   // ...
+   app.use(bodyParser.urlencoded({ extended: true }));*
+
+For the scope of this project, it’s not necessary you understand exactly how that line of code works. Just know that by using *body-parser* we can make use of the *req.body* object.
+
+Finally, we can now update our post request to log the value of ‘city’ to the console.
+
+ *app.post('/', function (req, res) {
+    res.render('index');
+    console.log(req.body.city);
+  })*
+
+Now test it! ...localhost:3000
+
+Now open your browser and visit: localhost:3000, type a city name into the field and hit enter!
+
+If you go back to your command prompt, you should see the city name displayed in the prompt! Awesome, you’ve now successfully passed data from the client to the server!

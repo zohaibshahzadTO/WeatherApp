@@ -150,3 +150,63 @@ If you go back to your command prompt, you should see the city name displayed in
 # Finishing Up
 
 What were going to do is make a request to the OpenWeatherMap API in our app.post request. Here’s what the code looks like:
+
+# 1.) Setting up our URL:
+
+The first thing we do when we receive the post request is grab the city off of req.body. Then we create a url string that we’ll use to access the OpenWeatherMap API with:
+
+  *app.post('/', function (req, res) {
+    let city = req.body.city;
+    let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`*
+
+# 2.) Make our API Call
+
+Now that we have our URL, we can make our API call. When we receive our callback, the first thing we’re going to do is check for an error. If we have an error, we’re going to render our index page. But notice that I’ve also added in a second argument. res.render has an optional second argument — an object where we can specify properties to be handled by our view ( index.ejs ).
+
+In this instance, I’ve added an error string:
+
+  *request(url, function (err, response, body) {
+      if(err){
+        res.render('index', {weather: null, error: 'Error, please try again'});*
+
+# 3.) Display the Weather
+
+Now that we know we have no API error, we can parse our JSON into a usable JavaScript object.
+
+The first thing we’ll do is check to see if weather.main == undefined . The only reason why this would be undefined, is if our user inputs a string that isn’t a city (‘3’, ‘afefaefefe’, etc.). In this instance, we’ll render the index view, and we’ll also pass back an error.
+
+If weather.main != undefined, then we can finally send back the weather to the client! We’ll create a string that clarifies what the weather is, and send that back with the index view.
+
+    *} else {
+        let weather = JSON.parse(body)
+
+        if(weather.main == undefined){
+          res.render('index', {weather: null, error: 'Error, please try again'});
+        }
+        else {
+          let weatherText = `It's ${weather.main.temp} degrees in ${weather.name}!`;
+          res.render('index', {weather: weatherText, error: null});
+        }
+      }*
+
+# Using EJS
+
+There's only one thing left to do at this point. We need to make use of all those variables we sent back with our *res.render* call. These variables aren't available on the client, this is where we finally get to use EJS. There are three possible scenarios that we have in our code.
+
+1.) {weather: null, error: null}
+2.) {weather: null, error: ‘Error, please try again’}
+3.) {weather: weatherText, error: null}
+
+We need to make two simple changes to our *index.ejs* to handle these three scenarios. Lets break it down:
+
+    *<% if(weather !== null){ %>
+      <p><%= weather %></p>
+     <% } %>
+
+     <% if(error !== null){ %>
+       <p><%= error %></p>
+     <% } %>*
+
+It helps to remember that EJS stands for Embedded Javascript. With that in mind, EJS has opening and closing brackets: *<% CODE HERE %>* Anything between the brackets is executed. If the opening bracket also includes an equal sign: *<%= CODE HERE ADDS HTML %>*, then that code will add HTML to the result.
+
+If we look at our EJS that we've added. we're testing to see if either of our *weather*, or *error* variables are null. If they're both *null*, nothing happens. However, if one isnt null (i.e. it has a value), then we will add a paragraph to the screen with the value of the respective variable.

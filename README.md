@@ -65,3 +65,25 @@ The short version is that EJS allows us to interact with variables and then dyna
 First, we'll install EJS in the terminal/console:
 
   *npm install ejs --save*
+
+We can then set up our template engine with this line of code in our server.js file:
+
+  *app.set('view engine', 'ejs')*
+
+EJS is accessed by default in the *views* directory. So create a new folder named *views* in your directory. Within that *views* folder, add a file named *index.ejs*. Think of this *index.ejs* file as an HTML file for now.
+
+Currently, this is what our file structure should look like:
+
+*|-- weather-app
+  |-- views
+    |-- index.ejs
+  |-- package.json
+  |-- server.js*
+
+The following is a boilerplate for the *index.ejs* file. The HTML is just a form with one input for a city, and one submit button:
+
+  *See index.ejs*
+
+Now that we've built upon our *index.ejs* file, we want to replace our *app.get* code: 
+
+  *See index.ejs file commit*

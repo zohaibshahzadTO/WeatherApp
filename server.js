@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 app.get('/', function (req, res) {
-  res.send('index');
+  res.render('index');
 })
 
 app.listen(3000, function () {

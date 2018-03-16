@@ -146,3 +146,7 @@ Now test it! ...localhost:3000
 Now open your browser and visit: localhost:3000, type a city name into the field and hit enter!
 
 If you go back to your command prompt, you should see the city name displayed in the prompt! Awesome, you’ve now successfully passed data from the client to the server!
+
+# Finishing Up
+
+What were going to do is make a request to the OpenWeatherMap API in our app.post request. Here’s what the code looks like:

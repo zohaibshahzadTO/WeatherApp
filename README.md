@@ -94,3 +94,13 @@ At this point, we can test again by running:
 
   *node server.js*
   // Example app listening on port 3000.
+
+# Implemented CSS
+
+  *See github repo for styling*
+
+Express wont allow access to the css file by default, so we need to expose it with the following line of code:
+
+  *app.use(express.static('public'));*
+
+# setting up our POST Route

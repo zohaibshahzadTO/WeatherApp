@@ -5,6 +5,9 @@ const app = express()
 // Sets the template engine
 app.set('view engine', 'ejs')
 
+// Allows connection to the CSS file
+app.use(express.static('public'));
+
 app.get('/', function (req, res) {
   res.render('index');
 })
